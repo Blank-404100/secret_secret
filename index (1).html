@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Starry Birthday Mystery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(ellipse at top, #2d1b69 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, #0f3460 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a1f 0%, #16213e 25%, #0f3460 50%, #2a4a73 75%, #4a6fa5 100%);
+      overflow: hidden;
+      color: #f7e9f0;
+      position: relative;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
+    }
+
+    .aurora {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(45deg,
+          transparent 30%,
+          rgba(138, 43, 226, 0.1) 40%,
+          rgba(75, 0, 130, 0.15) 50%,
+          rgba(138, 43, 226, 0.1) 60%,
+          transparent 70%);
+      animation: aurora 15s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes aurora {
+      0% {
+        opacity: 0.3;
+        transform: translateX(-20px) rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: translateX(20px) rotate(2deg);
+      }
+
+      100% {
+        opacity: 0.4;
+        transform: translateX(-10px) rotate(-1deg);
+      }
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      max-width: 600px;
+      animation: slideIn 1.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      background: linear-gradient(135deg, #ffe8ec 0%, #d48baa 50%, #b366d9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(255, 232, 236, 0.4);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      0% {
+        filter: drop-shadow(0 0 20px rgba(255, 232, 236, 0.3));
+      }
+
+      100% {
+        filter: drop-shadow(0 0 40px rgba(212, 139, 170, 0.6));
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #e8d5db;
+      margin-bottom: 20px;
+      font-weight: 300;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .mystery-button {
+      margin-top: 40px;
+      background: linear-gradient(135deg, #d48baa 0%, #b366d9 50%, #8a2be2 100%);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      padding: 18px 32px;
+      font-size: 1.1rem;
+      color: #ffffff;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow:
+        0 8px 25px rgba(212, 139, 170, 0.4),
+        0 0 20px rgba(179, 102, 217, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      align-self: flex-start;
+    }
+
+    .mystery-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .mystery-button:hover {
+      background: linear-gradient(135deg, #efaccb 0%, #c77dea 50%, #9932cc 100%);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow:
+        0 20px 40px rgba(212, 139, 170, 0.8),
+        0 0 30px rgba(179, 102, 217, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .mystery-button:hover::before {
+      left: 100%;
+    }
+
+    .moon {
+      position: absolute;
+      top: 40px;
+      left: 80%;
+      width: 140px;
+      height: 140px;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 15%, transparent 25%),
+        radial-gradient(circle at 25% 35%, rgba(240, 240, 240, 0.6) 0%, transparent 20%),
+        radial-gradient(circle at 60% 40%, rgba(230, 230, 230, 0.4) 0%, transparent 15%),
+        radial-gradient(circle at 45% 65%, rgba(220, 220, 220, 0.3) 0%, transparent 12%),
+        radial-gradient(circle at 70% 70%, rgba(210, 210, 210, 0.3) 0%, transparent 10%),
+        radial-gradient(circle at 30% 30%, #ffffff 0%, #f8f8f8 30%, #e8e8e8 70%, #d0d0d0 100%);
+      border-radius: 50%;
+      box-shadow:
+        0 0 100px rgba(255, 255, 255, 0.7),
+        0 0 150px rgba(255, 255, 255, 0.4),
+        0 0 200px rgba(255, 255, 255, 0.2),
+        inset -25px -25px 50px rgba(180, 180, 180, 0.4),
+        inset 15px 15px 30px rgba(255, 255, 255, 0.6);
+      z-index: 1;
+      animation: moonGlow 3s ease-in-out infinite alternate;
+      /*position: relative;*/
+    }
+
+    .moon::before {
+      content: '';
+      position: absolute;
+      top: 15%;
+      left: 25%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 40%, transparent 70%);
+      border-radius: 50%;
+      animation: moonShimmer 3s ease-in-out infinite alternate;
+    }
+
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 20%, transparent 40%);
+      border-radius: 50%;
+      animation: moonSparkle 4s ease-in-out infinite;
+    }
+
+    @keyframes moonGlow {
+      0% {
+        box-shadow:
+          0 0 100px rgba(255, 255, 255, 0.7),
+          0 0 150px rgba(255, 255, 255, 0.4),
+          0 0 200px rgba(255, 255, 255, 0.2),
+          inset -25px -25px 50px rgba(180, 180, 180, 0.4),
+          inset 15px 15px 30px rgba(255, 255, 255, 0.6);
+        transform: scale(1);
+      }
+
+      100% {
+        box-shadow:
+          0 0 130px rgba(255, 255, 255, 0.9),
+          0 0 180px rgba(255, 255, 255, 0.6),
+          0 0 250px rgba(255, 255, 255, 0.3),
+          inset -25px -25px 50px rgba(180, 180, 180, 0.3),
+          inset 15px 15px 30px rgba(255, 255, 255, 0.8);
+        transform: scale(1.02);
+      }
+    }
+
+    @keyframes moonShimmer {
+      0% {
+        opacity: 0.6;
+        transform: scale(1) rotate(0deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    @keyframes moonSparkle {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: rotate(180deg);
+      }
+    }
+
+    .poem {
+      margin-top: 30px;
+      font-style: italic;
+      opacity: 0.9;
+      font-size: 1.1rem;
+      color: #f0d4dc;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    /*.poem::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -10px;
+      font-size: 3rem;
+      color: #d48baa;
+      font-family: 'Playfair Display', serif;
+    }*/
+
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      animation: sparkle 3s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        padding: 8vw 5vw;
+      }
+
+      .moon {
+        width: 90px;
+        height: 90px;
+        top: 40px;
+        right: 20px;
+      }
+
+      .moon::before {
+        top: 12%;
+        left: 22%;
+        width: 55%;
+        height: 55%;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      .mystery-button {
+        padding: 16px 28px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="aurora"></div>
+  <div class="stars"></div>
+  <div class="floating-elements"></div>
+  <div class="moon"></div>
+  <div class="content">
+    <h1>Happy Birthday,Keeper!</h1>
+    <p>
+      Under the same stars, A soft thought of you.<br>
+      Cause it's You, The Thought, The Moment, The Day.
+    </p>
+    <p class="poem">
+      Wrapped in silence and curiosity,<br>
+      A whisper hides in this little surprise.<br>
+      Will you dare to know more?
+    </p>
+    <button class="mystery-button" onclick="window.location.href='letter.html'">Unravel the Secret ☽</button>
+  </div>
+  <script>
+    // Create stars
+    const starsContainer = document.querySelector('.stars');
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = (Math.random() * 4 + 1.5) + 's';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.opacity = Math.random() * 0.9 + 0.1;
+
+      // Add variety to star sizes
+      const size = Math.random() * 3 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+
+      // Add color variation
+      if (Math.random() > 0.8) {
+        star.style.background = `rgba(${186 + Math.random() * 50}, ${104 + Math.random() * 50}, ${200 + Math.random() * 55}, 0.8)`;
+      }
+
+      starsContainer.appendChild(star);
+    }
+
+
+
+    // Create floating sparkles
+    const floatingContainer = document.querySelector('.floating-elements');
+    for (let i = 0; i < 20; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.top = Math.random() * 100 + '%';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.animationDelay = Math.random() * 3 + 's';
+      floatingContainer.appendChild(sparkle);
+    }
+  </script>
+</body>
+
+</html>
